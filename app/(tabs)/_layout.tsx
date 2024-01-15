@@ -19,13 +19,18 @@ export default function TabLayout() {
 
   return (
     <Tabs
+
       screenOptions={{
+        headerTintColor: "black",
+        headerStyle: { backgroundColor: "#2D3142" },
+        tabBarStyle: { backgroundColor: "#2D3142" },
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
+
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
@@ -41,6 +46,7 @@ export default function TabLayout() {
               </Pressable>
             </Link>
           ),
+
         }}
       />
       <Tabs.Screen
