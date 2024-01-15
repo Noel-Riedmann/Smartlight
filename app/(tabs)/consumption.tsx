@@ -6,10 +6,11 @@ import { Text, View } from '../../components/Themed';
 export default function TabConsumptionScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
+      <Text style={styles.title}>Aktueller Verbrauch</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <EditScreenInfo path="app/(tabs)/two.tsx" />
     </View>
+    
   );
 }
 
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 20
   },
   title: {
     fontSize: 20,
