@@ -1,26 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Image } from "react-native";
-import RNPickerSelect, { PickerSelectProps } from "react-native-picker-select";
+import DropDownPicker from "react-native-dropdown-picker";
 import { Text, View } from "../../components/Themed";
+import { transform } from "@babel/core";
 
 export default function IconAndDropdownCard(props: {
   icon: any;
   dropdownOptions: string[];
 }) {
-  const items = props.dropdownOptions.map((value) => ({ label: value, value }));
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([]);
+
+  // Map the dropdownOptions to the format expected by DropDownPicker
+  const dropdownItems = props.dropdownOptions.map((option) => ({
+    label: option,
+    value: option,
+  }));
 
   return (
     <View style={styles.container}>
       <Image source={props.icon} />
       <View style={styles.dropdownField}>
-        <RNPickerSelect
-          placeholder={{ label: "Select an option", value: null }}
-          items={items}
-          style={pickerSelectStyles}
-          onValueChange={(value) => {
-            // Handle the selected value as needed
+        <DropDownPicker
+          open={open}
+          value={value}
+          items={dropdownItems}
+          setOpen={setOpen}
+          setValue={setValue}
+          onChangeValue={(value) => {
             console.log(value);
           }}
+          style={{
+            backgroundColor: "transparent",
+            borderColor: "#2D3142",
+          }}
+          textStyle={{
+            fontSize: 20,
+            color: "white",
+            fontWeight: "bold",
+            textAlign: "right",
+          }}
+          dropDownContainerStyle={{
+            backgroundColor: "#2D3142",
+            borderColor: "#2D3142",
+          }}
+          ArrowUpIconComponent={() => (
+            <Image source={require("./arrow_up.png")} style={styles.icon} />
+          )}
+          ArrowDownIconComponent={() => (
+            <Image source={require("./arrow_down.png")} style={styles.icon} />
+          )}
+          showTickIcon={false}
         />
       </View>
     </View>
@@ -40,31 +71,8 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "transparent",
     alignItems: "center",
+    backgroundColor: "red", // todo = set width
   },
-});
-
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: "gray",
-    borderRadius: 4,
-    color: "white",
-    paddingRight: 30,
-  },
-  inputAndroid: {
-    backgroundColor: "#2D3142",
-    fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 0.5,
-    borderColor: "purple",
-    borderRadius: 8,
-    color: "white",
-    paddingRight: 30,
-  },
+  icon: {},
 });
