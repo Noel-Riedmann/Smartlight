@@ -4,6 +4,7 @@ import { Text, View } from '../../components/Themed';
 import IconAndTextCard from '../../components/cards/iconAndTextCard';
 import IconAndDropdownCard from '../../components/cards/iconAndDropdown';
 import TextAndDropdown from "../../components/cards/textAndDropdown";
+import HeadlineAndTextAndDropdown from "../../components/cards/headlineAndTextAndDropdown";
 
 export default function TabWeatherScreen() {
     return (
@@ -11,7 +12,9 @@ export default function TabWeatherScreen() {
             <Text style={styles.title}>Witterung</Text>
             <IconAndTextCard icon={require('../../icons/stormCloud.png')} headText='Sonne' subText='Helligkeit: Hell' />
             <IconAndDropdownCard icon={require('../../icons/stormCloud.png')} dropdownOptions={["Value", "Value2"]} />
-            <TextAndDropdown text="222 KW" dropdownOptions={["Value", "Value2"]}></TextAndDropdown>
+            <TextAndDropdown text="222 KW" dropdownOptions={["Value", "Value2"]} />
+            <HeadlineAndTextAndDropdown headText="Verbauch und so dings" subText="22 KW" dropdownOptions={["Value", "Value2"]} />
+
             
         </View>
     );
