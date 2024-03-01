@@ -4,8 +4,8 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { Text, View } from "../../components/Themed";
 import { transform } from "@babel/core";
 
-export default function IconAndDropdownCard(props: {
-  icon: any;
+export default function textAndDropdown(props: {
+  text: string;
   dropdownOptions: string[];
 }) {
   const [open, setOpen] = useState(false);
@@ -20,7 +20,7 @@ export default function IconAndDropdownCard(props: {
 
   return (
     <View style={styles.container}>
-      <Image source={props.icon} />
+      <Text style={styles.text}>{props.text}</Text>
       <View style={styles.dropdownField}>
         <DropDownPicker
           open={open}
@@ -66,13 +66,19 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     display: "flex",
     flexDirection: "row",
+    alignItems: "center"
   },
   dropdownField: {
     flex: 1,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#ffffff",
   },
   icon: {},
 });
