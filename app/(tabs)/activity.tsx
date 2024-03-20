@@ -5,28 +5,43 @@ import { useState } from 'react';
 import SmartLights from '../../components/activity/SmartLights';
 import Karte from '../../components/activity/Karte';
 import Andere from '../../components/activity/Andere';
+import PagerView from 'react-native-pager-view';
 
 export default function TabActivityScreen() {
 
     const [content, setContent] = useState(<SmartLights />);
+    const [id, setId] = useState("Karte");
 
 
     return (
         <View style={styles.page}>
             <View style={styles.swipeFilter}>
-                <SwipeActivity name="Karte" handleClick={handleClick} ></SwipeActivity>
-                <SwipeActivity name="SmartLights" handleClick={handleClick}></SwipeActivity>
-                <SwipeActivity name="Andere" handleClick={handleClick}></SwipeActivity>
+                <SwipeActivity name="Karte" handleClick={handleClick} id={id} ></SwipeActivity>
+                <SwipeActivity name="SmartLights" handleClick={handleClick} id={id}></SwipeActivity>
+                <SwipeActivity name="Andere" handleClick={handleClick} id={id}></SwipeActivity>
             </View>
 
 
-            <View>
+            <PagerView style={styles.page} initialPage={0}>
+                <View style={styles.page} key="1">
+                    <Text>First page</Text>
+                </View>
+                <View style={styles.page} key="2">
+                    <Text>Second page</Text>
+                </View>
+                <View style={styles.page} key="3">
+                    <Text>Third page</Text>
+                </View>
+            </PagerView>
+
+
+            {/*<View>
                 {content}
-            </View>
-        </View>
+            </View>*/}
+        </View >
     );
 
-    function handleClick(name: string) {
+    function handleClick(name: string, id: string) {
         if (name === "Karte") {
             setContent(<Karte />);
         }
@@ -37,7 +52,10 @@ export default function TabActivityScreen() {
             setContent(<SmartLights />);
         }
 
+        setId(name);
 
+        console.log(id);
+        console.log(name);
 
 
     }
@@ -51,7 +69,8 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     swipeFilter: {
-        height: 200,
+        marginBottom: 20,
+        marginTop: 10,
         backgroundColor: 'transparent',
         display: 'flex',
         flexDirection: 'row',
