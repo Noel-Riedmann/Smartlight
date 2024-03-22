@@ -1,81 +1,70 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import SwipeActivity from '../../components/activity/SwipeActivity';
 import { useState } from 'react';
 import SmartLights from '../../components/activity/SmartLights';
 import Karte from '../../components/activity/Karte';
 import Andere from '../../components/activity/Andere';
-import PagerView from 'react-native-pager-view';
+import { TabBar, TabView } from 'react-native-tab-view';
+import React from 'react';
 
 export default function TabActivityScreen() {
 
-    const [content, setContent] = useState(<SmartLights />);
-    const [id, setId] = useState("Karte");
+    const initialLayout = { width: Dimensions.get('window').width };
+
+    const renderTabBar = (props: any) => (
+        <TabBar
+            {...props}
+            indicatorStyle={{ backgroundColor: 'white', width: '33.33%' }}
+            style={{ backgroundColor: 'transparent', elevation: 0, }}
+            activeColor={'white'}
+            inactiveColor={'white'}
+            tabStyle={{ padding: 0, margin: 0 }}
+        />
+    );
+
+    const [index, setIndex] = useState(0);
+    const [routes] = useState([
+        { key: 'map', title: 'Karte' },
+        { key: 'smartLights', title: 'SmartLights' },
+        { key: 'other', title: 'Andere' },
+    ]);
+
+    const renderScene = ({ route }: { route: { key: string } }) => {
+        switch (route.key) {
+            case 'map':
+                return <Karte initialLayout={initialLayout} ></Karte>;
+            case 'smartLights':
+                return <SmartLights></SmartLights>;
+            case 'other':
+                return <Andere></Andere>;
+            default:
+                return null;
+        }
+    };
 
 
     return (
-        <View style={styles.page}>
-            <View style={styles.swipeFilter}>
-                <SwipeActivity name="Karte" handleClick={handleClick} id={id} ></SwipeActivity>
-                <SwipeActivity name="SmartLights" handleClick={handleClick} id={id}></SwipeActivity>
-                <SwipeActivity name="Andere" handleClick={handleClick} id={id}></SwipeActivity>
-            </View>
+        <View style={styles.scene}>
+            <TabView
+                navigationState={{ index, routes }}
+                renderScene={renderScene}
+                onIndexChange={setIndex}
+                initialLayout={initialLayout}
+                renderTabBar={renderTabBar}
+            />
+        </View>
 
 
-            <PagerView style={styles.page} initialPage={0}>
-                <View style={styles.page} key="1">
-                    <Text>First page</Text>
-                </View>
-                <View style={styles.page} key="2">
-                    <Text>Second page</Text>
-                </View>
-                <View style={styles.page} key="3">
-                    <Text>Third page</Text>
-                </View>
-            </PagerView>
 
-
-            {/*<View>
-                {content}
-            </View>*/}
-        </View >
     );
-
-    function handleClick(name: string, id: string) {
-        if (name === "Karte") {
-            setContent(<Karte />);
-        }
-        if (name === "Andere") {
-            setContent(<Andere />);
-        }
-        if (name === "SmartLights") {
-            setContent(<SmartLights />);
-        }
-
-        setId(name);
-
-        console.log(id);
-        console.log(name);
-
-
-    }
-
 
 }
 
 const styles = StyleSheet.create({
-    page: {
+    scene: {
         backgroundColor: '#4F5D75',
-        height: '100%'
-    },
-    swipeFilter: {
-        marginBottom: 20,
-        marginTop: 10,
-        backgroundColor: 'transparent',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-evenly'
-
+        height: "100%"
     },
 
 });

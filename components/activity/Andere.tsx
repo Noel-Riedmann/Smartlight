@@ -3,15 +3,16 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 
 export default function Andere() {
     return (
-        <View style={styles.anderePage}>
+        <View style={styles.otherPage}>
             <Text style={styles.whiteText}>Andere</Text>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    anderePage: {
+    otherPage: {
         backgroundColor: '#4F5D75',
+        height: "100%",
     },
 
     whiteText: {

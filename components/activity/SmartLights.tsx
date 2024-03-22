@@ -12,6 +12,7 @@ export default function SmartLights() {
 const styles = StyleSheet.create({
     smartLightsPage: {
         backgroundColor: '#4F5D75',
+        height: "100%",
     },
 
     whiteText: {
