@@ -1,6 +1,6 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
-import { Pressable, useColorScheme } from 'react-native';
+import { Platform, Pressable, useColorScheme } from 'react-native';
 
 import Colors from '../../constants/Colors';
 
@@ -17,15 +17,35 @@ function TabBarIcon(props: {
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
+
+  const headerStyle = {
+    backgroundColor: '#2D3142',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+      },
+      android: {
+        elevation: 8,
+      },
+    }),
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  };
+
   return (
     <Tabs
-
       screenOptions={{
         headerTintColor: "white",
-        headerStyle: { backgroundColor: "#2D3142" },
-        tabBarStyle: { backgroundColor: "#2D3142" },
+        headerStyle: headerStyle,
+        tabBarStyle: { backgroundColor: "#2D3142", borderColor: 'transparent', elevation: 0 },
         tabBarActiveTintColor: "white",
+
+
       }}>
+
       <Tabs.Screen
         name="index"
         options={{
