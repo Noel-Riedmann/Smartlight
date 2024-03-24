@@ -1,5 +1,5 @@
 import MapView from 'react-native-maps';
-import { View, Text } from '../Themed';
+import { View, Text } from '../../Themed';
 import { StyleSheet } from 'react-native';
 import { initialWindowMetrics } from 'react-native-safe-area-context';
 
@@ -33,6 +33,8 @@ const styles = StyleSheet.create({
 
     whiteText: {
         color: 'white',
+        fontWeight: '900',
+        fontSize: 30,
     },
     map: {
         width: "100%",

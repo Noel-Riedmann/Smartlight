@@ -1,4 +1,4 @@
-import { View, Text } from '../Themed';
+import { View, Text } from '../../Themed';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 export default function Andere() {
