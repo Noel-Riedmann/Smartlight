@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Dimensions, StyleSheet, View } from 'react-native'
+import { Dimensions, StyleSheet, View, Text } from 'react-native'
 import { TabBar, TabView } from 'react-native-tab-view'
 import Karte from '../swipeBarElements/Karte';
 import SmartLights from '../swipeBarElements/SmartLights';
@@ -9,6 +9,8 @@ import TabActivityScreen from '../../../app/(tabs)/activity';
 export default function SwipeBar() {
 
     const initialLayout = { width: Dimensions.get('window').width };
+
+    const tabStyleWidth = initialLayout.width / 3;
 
     const indicatorWidthAdjustment = 50;
     const indicatorWidth = initialLayout.width / 3 - indicatorWidthAdjustment;
@@ -23,10 +25,23 @@ export default function SwipeBar() {
             style={{ backgroundColor: 'transparent', elevation: 0, }}
             activeColor={'white'}
             inactiveColor={'white'}
-            tabStyle={{ padding: 0, margin: 0 }}
+            tabStyle={{ padding: 0, margin: 0, }}
+
+            //labelStyle={{ fontWeight: 'bold' }}
+
+            renderLabel={({ route, focused, color }: { route: { title: string }; focused: boolean; color: string }) => (
+                <View style={{ width: tabStyleWidth, display: 'flex', alignItems: 'center' }}>
+                    <Text style={{ color, fontWeight: focused ? '800' : 'normal' }}>
+                        {route.title}
+                    </Text>
+                </View>
+
+            )}
+
 
         />
     );
+
 
     const [index, setIndex] = useState(0);
     const [routes] = useState([
@@ -34,6 +49,8 @@ export default function SwipeBar() {
         { key: 'smartLights', title: 'SmartLights' },
         { key: 'other', title: 'Andere' },
     ]);
+
+
 
     const renderScene = ({ route }: { route: { key: string } }) => {
         switch (route.key) {
